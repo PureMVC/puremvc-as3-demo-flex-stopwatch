@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+    creationComplete="facade.startup(this)"
+    xmlns:mx="http://www.adobe.com/2006/mxml" 
+    pageTitle="StopWatch - A PureMVC AS3 StateMachine Demo"
+    themeColor="HaloBlue" layout="vertical" horizontalAlign="center"
+    paddingBottom="0" paddingRight="0" paddingLeft="0" paddingTop="0"
+    backgroundGradientColors="[#325EC0,#FFFFFF]" backgroundColor="#FFFFFF" 
+	>
+    
+    <mx:Script>
+    	<![CDATA[
+    		import org.puremvc.as3.demos.flex.stopwatch.ApplicationFacade;
+			
+			// App name
+	    	public static const NAME:String = "StopWatch";
+			
+			// Action names
+	    	public static const ACTION_STOP:String  	= NAME+"/actions/stop";
+	    	public static const ACTION_START:String 	= NAME+"/actions/start";
+	    	public static const ACTION_RESET:String 	= NAME+"/actions/reset";
+	    	public static const ACTION_SPLIT:String 	= NAME+"/actions/split";
+	    	public static const ACTION_UNSPLIT:String 	= NAME+"/actions/unsplit";
+	    	
+	    	// State names
+	    	public static const STATE_READY:String 		= NAME+"/states/ready";
+	    	public static const STATE_RUNNING:String 	= NAME+"/states/running";
+	    	public static const STATE_PAUSED:String 	= NAME+"/states/paused";
+	    	public static const STATE_STOPPED:String 	= NAME+"/states/stopped";
+	    	
+			// API exposed to mediator
+	    	[Bindable] public var laptime:String;
+	    	[Bindable] public var elapsed:String;
+	    	[Bindable] public var state:String;
+	    	
+	    	// Initialize the PureMVC apparatus
+	    	private var facade:ApplicationFacade = ApplicationFacade.getInstance();
+	    	
+	    	// Send events
+	    	private function sendEvent( eventName:String ):void
+	    	{
+	    		this.dispatchEvent( new Event( eventName ) );
+	    	}
+    	
+    	]]>
+    </mx:Script>
+	
+	<!-- CONTROL BAR -->
+    <mx:ApplicationControlBar dock="true">
+    	
+    	<!-- TITLE AND DESCRIPTION -->
+        <mx:HBox id="toolbarLeft" horizontalAlign="left" verticalAlign="middle" width="33%" height="100%">
+            <mx:Text text="StopWatch" fontFamily="Verdana" fontSize="22" fontStyle="normal" color="#0559CC"/>
+            <mx:Label id="statusLine" fontWeight="bold" text="A PureMVC AS3 StateMachine Demo"/>
+        </mx:HBox>
+        
+        <mx:HBox horizontalAlign="center" verticalAlign="middle" width="33%" height="100%">
+            <mx:Text text="Current State:" fontFamily="Verdana" fontSize="12" fontStyle="normal" color="#0559CC"/>
+            <mx:Label fontWeight="bold" text="{state}"/>
+        </mx:HBox>
+
+        <!-- STOP WATCH CONTROLS -->
+        <mx:HBox id="toolbarRight" horizontalAlign="right" verticalAlign="middle" width="33%" height="100%">
+        
+    		<!-- START BUTTON -->
+    		<mx:Button 	label="Start" 
+    					click="sendEvent(ACTION_START)"  
+    				   	enabled="{state==STATE_READY}" 
+    				   	toolTip="Start the StopWatch Timer." />
+    				   
+    		<!-- STOP BUTTON -->
+    		<mx:Button 	label="Stop"
+    					click="sendEvent(ACTION_STOP)"     
+    				   	enabled="{state==STATE_RUNNING||state==STATE_PAUSED}"
+    				   	toolTip="Stop the StopWatch Timer."  />
+    		
+    		<!-- SPLIT BUTTON -->
+    		<mx:Button 	label="Split" 
+    					click="sendEvent(ACTION_SPLIT)"  
+    					enabled="{state==STATE_RUNNING}"
+    					toolTip="Split the StopWatch display."  />
+    		
+    		<!-- UNSPLIT BUTTON -->
+    		<mx:Button 	label="Unsplit"
+    					click="sendEvent(ACTION_UNSPLIT)" 
+    					enabled="{state==STATE_PAUSED}" 
+    					toolTip="Unsplit the StopWatch display." />
+    		
+    		<!-- UNSPLIT BUTTON -->
+    		<mx:Button 	label="Reset"
+    					click="sendEvent(ACTION_RESET)"   
+    					enabled="{state==STATE_STOPPED}" 
+    					toolTip="Reset the StopWatch."/>
+    		
+        </mx:HBox>
+        
+    </mx:ApplicationControlBar>
+	
+	<!-- DISPLAY -->
+	<mx:VBox width="50%" height="100%" horizontalAlign="right" verticalAlign="middle">
+		<mx:HBox horizontalAlign="right" verticalAlign="middle">
+			<mx:Label visible="{state!=STATE_READY}" text="Elapsed:" fontSize="32"  color="#FFFFFF"/>
+			<mx:Label id="lblElapsed" text="{elapsed}" fontSize="64" color="#00FF00" />
+		</mx:HBox>		
+		<mx:HBox horizontalAlign="right" verticalAlign="middle">
+			<mx:Label text="Lap Time:" visible="{state==STATE_PAUSED}" fontSize="32" color="#000000"/>
+			<mx:Label id="lblLap" visible="{state==STATE_PAUSED}" text="{laptime}" fontSize="64"  color="#FF0000"/>
+		</mx:HBox>		
+	</mx:VBox>
+	
+	
+</mx:Application>
