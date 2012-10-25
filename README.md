@@ -19,7 +19,7 @@ Production - [Version 1.1](https://github.com/PureMVC/puremvc-as3-demo-flex-stop
 * [Flex](http://en.wikipedia.org/wiki/Adobe_Flex)
 
 ## License
-* PureMVC AS3 StateMachine Demo - StopWatch - Copyright © 2007-2008, Cliff Hall 
+* PureMVC AS3 StateMachine Demo - StopWatch - Copyright © 2007-2008 Cliff Hall 
 * PureMVC - Copyright © 2007-2012 Futurescale, Inc.
 * All rights reserved.
 
