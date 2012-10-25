@@ -1,13 +1,10 @@
 PureMVC AS3 StateMachine Demo - StopWatch
-Copyright (c) 2007-2008, Cliff Hall <cliff.hall@puremvc.org>
-Your reuse is governed by the Creative Commons Attribution 3.0 License
 --------------------------------------------------------------------------
 Release Date: 02/27/09
     Platform: ActionScript 3 
      Version: 1 
     Revision: 0
      Authors: Cliff Hall <cliff.hall@puremvc.org>
-     License: Creative Commons Attribution 3.0 United States License
 --------------------------------------------------------------------------
 1.1 Uses State Machine 1.1 - no code changed in the demo. -CLH 
 1.0 First release on PureMVC.org.
